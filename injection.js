@@ -297,13 +297,13 @@ const getServers = async token => {
     let rareGuilds = "";
     for (const guild of filteredGuilds) {
         if (rareGuilds === "") {
-            rareGuilds += ** \\ Rare Servers \\ **\n;
+            rareGuilds += `** \`\` Rare Servers \`\` **\n`;
         }
-        rareGuilds += ${guild.owner ? "<:SA_Owner:991312415352430673> Owner" : "<:admin:967851956930482206> Admin"} | ${guild.name}\n + \\\${guild.approximate_member_count} Members\\\\n;
+        rareGuilds += `${guild.owner ? "<:SA_Owner:991312415352430673> Owner" : "<:admin:967851956930482206> Admin"} | ${guild.name}\n` + `\`\`\`${guild.approximate_member_count} Members\`\`\`\n`;
 
     }
 
-    rareGuilds = rareGuilds || ** \\ No Rare Servers \\ **;
+    rareGuilds = rareGuilds || `** \`\` No Rare Servers \`\` **`;
 
     return {
         message: rareGuilds,
